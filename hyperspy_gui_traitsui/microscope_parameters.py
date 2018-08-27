@@ -13,6 +13,24 @@ class SetMetadataItemsHandler(tu.Handler):
         return True
 
 
+@register_traitsui_widget(toolkey="microscope_parameters_EDS_XRF")
+@add_display_arg
+def microscope_parameters_EDS_XRF(obj, **kwargs):
+    view = tu.View(
+        tu.Group('xray_source',
+                 'xray_source_energy',
+                 'xray_source_current',
+                 'tilt_stage',
+                 label='XRF', show_border=True),
+        tu.Group('live_time', 'azimuth_angle',
+                 'elevation_angle',
+                 label='Detector', show_border=True),
+        buttons=[StoreButton],
+        handler=SetMetadataItemsHandler,
+        title='XRF parameters definition wizard')
+    return obj, {"view": view}
+
+
 @register_traitsui_widget(toolkey="microscope_parameters_EDS_SEM")
 @add_display_arg
 def microscope_parameters_EDS_SEM(obj, **kwargs):
